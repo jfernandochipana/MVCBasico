@@ -9,5 +9,9 @@ namespace MVCBasico.Context
         {
         }
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Auricular> Auriculares { get; set; }
+        public DbSet<Celular> Celulares { get; set; }
+        public DbSet<Computadora> Computadoras { get; set; }
+
     }
 }
