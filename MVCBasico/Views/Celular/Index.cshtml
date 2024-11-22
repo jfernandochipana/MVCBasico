@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<MVCBasico.Models.Celular>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Celulares en stock";
 }
 
-<h1>Index</h1>
+<h1>Productos</h1>
 
-<p>
+@* <p>
     <a asp-action="Create">Create New</a>
-</p>
+</p> *@
 <table class="table">
     <thead>
         <tr>
@@ -49,11 +49,13 @@
                 @Html.DisplayFor(modelItem => item.memoriaRam)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductoId">Delete</a>
+                @* <a asp-action="Edit" asp-route-id="@item.ProductoId">Edit</a>  *@
+                    <a asp-action="Details" asp-route-id="@item.ProductoId" class="btn btn-info">Detalle</a>
+                @* <a asp-action="Delete" asp-route-id="@item.ProductoId">Delete</a> *@
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Volver</a>

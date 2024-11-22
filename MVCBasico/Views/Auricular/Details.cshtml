@@ -1,10 +1,10 @@
 ﻿@model MVCBasico.Models.Auricular
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle";
 }
 
-<h1>Details</h1>
+<h1>Especificaciones:</h1>
 
 <div>
     <h4>Auricular</h4>
@@ -37,6 +37,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductoId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @* <a asp-action="Edit" asp-route-id="@Model?.ProductoId">Edit</a> *@
+    <a asp-controller="Home" asp-action="Pagar" asp-route-nombre="@Model?.nombre" asp-route-precio="@Model?.precio" class="btn btn-primary">Comprar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
 </div>

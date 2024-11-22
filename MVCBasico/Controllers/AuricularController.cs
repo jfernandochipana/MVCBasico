@@ -153,5 +153,6 @@ namespace MVCBasico.Controllers
         {
             return _context.Auriculares.Any(e => e.ProductoId == id);
         }
+
     }
 }
