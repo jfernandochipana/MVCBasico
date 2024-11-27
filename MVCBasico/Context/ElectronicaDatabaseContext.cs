@@ -13,5 +13,7 @@ namespace MVCBasico.Context
         public DbSet<Celular> Celulares { get; set; }
         public DbSet<Computadora> Computadoras { get; set; }
 
+        public DbSet<Venta> Ventas { get; set; }
+
     }
 }

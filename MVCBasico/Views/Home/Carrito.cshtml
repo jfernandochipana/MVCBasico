@@ -79,4 +79,34 @@
     <a asp-controller="Home" asp-action="Index" class="btn btn-danger">Cancelar</a>
 </form>
 
+<form asp-controller="Venta" asp-action="Create" method="post">
+    <input type="hidden" name="producto" value="@ViewBag.Producto">
+    <div class="row mb-3">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" id="email" name="cliente.Email" placeholder="Ingrese email">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="numTarjeta" class="col-sm-2 col-form-label">Número de Tarjeta</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="numTarjeta" name="numeroTarjeta" placeholder="Número de tarjeta">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="vencTarjeta" class="col-sm-2 col-form-label">Fecha de Vencimiento</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="vencTarjeta" name="vencTarjeta" placeholder="MM/AAAA">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="cvv" class="col-sm-2 col-form-label">CVV</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Confirmar Venta</button>
+</form>
+
+
 </div>
