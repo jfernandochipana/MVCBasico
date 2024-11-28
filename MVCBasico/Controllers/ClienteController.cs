@@ -25,6 +25,7 @@ namespace MVCBasico.Controllers
             return View(await _context.Clientes.ToListAsync());
 
             //return View(_context.Estudiantes.ToList) si no usariamos entity framework, mejor es async
+
         }
 
         // GET: Estudiante/Details/5

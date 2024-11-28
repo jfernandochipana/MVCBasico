@@ -3,6 +3,7 @@ using MVCBasico.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCBasico.Migrations
 {
     [DbContext(typeof(ElectronicaDatabaseContext))]
-    partial class ElectronicaDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241128203439_ActualizacionVenta2da")]
+    partial class ActualizacionVenta2da
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,6 +118,10 @@ namespace MVCBasico.Migrations
 
                     b.HasKey("VentaId");
 
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("ProductoId");
+
                     b.ToTable("Ventas");
                 });
 
@@ -157,6 +164,25 @@ namespace MVCBasico.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.ToTable("Computadoras", (string)null);
+                });
+
+            modelBuilder.Entity("MVCBasico.Models.Venta", b =>
+                {
+                    b.HasOne("MVCBasico.Models.Cliente", "cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MVCBasico.Models.Producto", "producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("cliente");
+
+                    b.Navigation("producto");
                 });
 
             modelBuilder.Entity("MVCBasico.Models.Auricular", b =>

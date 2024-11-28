@@ -9,8 +9,8 @@ namespace MVCBasico.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public String Apellido { get; set; }
-        public String Domicilio { get; set; }
+        public string Apellido { get; set; }
+        public string Domicilio { get; set; }
 
         //[Display(Name = "Fecha inscripción")]
         //public DateTime FechaInscripto { get; set; }

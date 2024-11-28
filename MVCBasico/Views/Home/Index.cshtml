@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<MVCBasico.Models.Cliente>
+
+@{
     ViewData["Title"] = "Página principal";
 }
 
@@ -9,6 +11,7 @@
 
     <br />
     <br />
+
     <div class="btn-group" role="group" aria-label="Basic outlined example">
  
         <a type="button" class="btn btn-outline-primary" asp-area="" asp-controller="Auricular" asp-action="Index">Auriculares</a>

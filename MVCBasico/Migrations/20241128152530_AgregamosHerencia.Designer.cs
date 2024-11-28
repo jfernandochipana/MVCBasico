@@ -3,6 +3,7 @@ using MVCBasico.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVCBasico.Migrations
 {
     [DbContext(typeof(ElectronicaDatabaseContext))]
-    partial class ElectronicaDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241128152530_AgregamosHerencia")]
+    partial class AgregamosHerencia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,6 +57,11 @@ namespace MVCBasico.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductoId"));
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
                     b.Property<string>("nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -68,7 +76,9 @@ namespace MVCBasico.Migrations
 
                     b.ToTable("Productos");
 
-                    b.UseTptMappingStrategy();
+                    b.HasDiscriminator().HasValue("Producto");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("MVCBasico.Models.Venta", b =>
@@ -115,6 +125,10 @@ namespace MVCBasico.Migrations
 
                     b.HasKey("VentaId");
 
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("ProductoId");
+
                     b.ToTable("Ventas");
                 });
 
@@ -125,7 +139,7 @@ namespace MVCBasico.Migrations
                     b.Property<int>("potenciaWatts")
                         .HasColumnType("int");
 
-                    b.ToTable("Auriculares", (string)null);
+                    b.HasDiscriminator().HasValue("Auricular");
                 });
 
             modelBuilder.Entity("MVCBasico.Models.Celular", b =>
@@ -139,7 +153,16 @@ namespace MVCBasico.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Celulares", (string)null);
+                    b.ToTable("Productos", t =>
+                        {
+                            t.Property("memoriaRam")
+                                .HasColumnName("Celular_memoriaRam");
+
+                            t.Property("procesador")
+                                .HasColumnName("Celular_procesador");
+                        });
+
+                    b.HasDiscriminator().HasValue("Celular");
                 });
 
             modelBuilder.Entity("MVCBasico.Models.Computadora", b =>
@@ -156,34 +179,26 @@ namespace MVCBasico.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Computadoras", (string)null);
+                    b.HasDiscriminator().HasValue("Computadora");
                 });
 
-            modelBuilder.Entity("MVCBasico.Models.Auricular", b =>
+            modelBuilder.Entity("MVCBasico.Models.Venta", b =>
                 {
-                    b.HasOne("MVCBasico.Models.Producto", null)
-                        .WithOne()
-                        .HasForeignKey("MVCBasico.Models.Auricular", "ProductoId")
+                    b.HasOne("MVCBasico.Models.Cliente", "cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("MVCBasico.Models.Celular", b =>
-                {
-                    b.HasOne("MVCBasico.Models.Producto", null)
-                        .WithOne()
-                        .HasForeignKey("MVCBasico.Models.Celular", "ProductoId")
+                    b.HasOne("MVCBasico.Models.Producto", "producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("MVCBasico.Models.Computadora", b =>
-                {
-                    b.HasOne("MVCBasico.Models.Producto", null)
-                        .WithOne()
-                        .HasForeignKey("MVCBasico.Models.Computadora", "ProductoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("cliente");
+
+                    b.Navigation("producto");
                 });
 #pragma warning restore 612, 618
         }

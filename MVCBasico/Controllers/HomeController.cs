@@ -1,6 +1,7 @@
 using AspNetCoreGeneratedDocument;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MVCBasico.Context;
 using MVCBasico.Models;
 using System.Diagnostics;
 
@@ -40,13 +41,12 @@ namespace MVCBasico.Controllers
             return View("Carrito");
         }
 
-        public IActionResult Confirmacion()
-        {
-            //var producto = new Auricular { nombre = nombre, precio = precio };
+        //public IActionResult Confirmacion()
+        //{
+        //    // retorna una vista e indico el nombre de la vista
+        //    return View("Confirmacion");
+        //}
 
-            // retorna una vista e indico el nombre de la vista
-            return View("Pagado");
-        }
 
     }
 }
